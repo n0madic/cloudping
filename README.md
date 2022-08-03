@@ -32,6 +32,7 @@ Options:
   --all, -a              Scan all providers
   --count COUNT, -c COUNT
                          Number of pings to send [default: 4]
+  --hide-errors, -e      Hide errors from results
   --region REGION, -r REGION
                          Filter by regions, can be specified multiple times
   --location LOCATION, -l LOCATION

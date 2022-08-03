@@ -9,6 +9,7 @@ import (
 type config struct {
 	All            bool          `arg:"--all,-a" help:"Scan all providers"`
 	Count          int           `arg:"--count,-c" default:"4" help:"Number of pings to send"`
+	HideErrors     bool          `arg:"--hide-errors,-e" help:"Hide errors from results"`
 	FilterRegion   []string      `arg:"--region,-r,separate" help:"Filter by regions, can be specified multiple times"`
 	FilterLocation []string      `arg:"--location,-l,separate" help:"Filter by location, can be specified multiple times"`
 	Provider       string        `arg:"--provider,-p" default:"aws" help:"Choose provider for ping"`

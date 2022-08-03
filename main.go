@@ -60,6 +60,9 @@ func main() {
 	for _, region := range results {
 		status := "OK"
 		if region.err != nil {
+			if args.HideErrors {
+				continue
+			}
 			status = fmt.Sprintf("ERROR: %s", region.err)
 		} else if region.rtt == 0 {
 			continue
