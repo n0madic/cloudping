@@ -56,6 +56,7 @@ func main() {
 	t.SetOutputMirror(os.Stdout)
 	t.SetAutoIndex(true)
 	t.AppendHeader(table.Row{"Cloud", "Region", "Location", "RTT", "Status"})
+	var minRTT time.Duration
 	for _, region := range results {
 		status := "OK"
 		if region.err != nil {
@@ -67,6 +68,9 @@ func main() {
 		if rtt > time.Second {
 			rtt = rtt.Round(time.Millisecond)
 		}
+		if rtt < minRTT || minRTT == 0 {
+			minRTT = rtt
+		}
 		t.AppendRow(table.Row{region.code, region.name, region.location, rtt, status})
 	}
 	t.SetColumnConfigs([]table.ColumnConfig{
@@ -76,6 +80,9 @@ func main() {
 			Transformer: func(val interface{}) string {
 				if val.(time.Duration) > time.Second {
 					return text.FgRed.Sprintf("%s", val)
+				}
+				if val.(time.Duration) == minRTT {
+					return text.Bold.Sprintf("%s", val)
 				}
 				return val.(time.Duration).String()
 			},
