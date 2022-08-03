@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"sort"
-	"strings"
 	"sync"
 	"time"
 
@@ -58,12 +57,12 @@ func main() {
 	t.AppendHeader(table.Row{"Cloud", "Region", "Location", "RTT", "Status"})
 	var minRTT time.Duration
 	for _, region := range results {
-		status := "OK"
+		status := text.FgGreen.Sprint("OK")
 		if region.err != nil {
 			if args.HideErrors {
 				continue
 			}
-			status = fmt.Sprintf("ERROR: %s", region.err)
+			status = text.FgRed.Sprintf("ERROR: %s", region.err)
 		} else if region.rtt == 0 {
 			continue
 		}
@@ -91,15 +90,7 @@ func main() {
 			},
 		},
 		{
-			Name: "Status",
-			Transformer: text.Transformer(func(val interface{}) string {
-				color := text.FgGreen
-				str := val.(string)
-				if strings.Contains(str, "ERROR") {
-					color = text.FgRed
-				}
-				return color.Sprintf("%s", val)
-			}),
+			Name:     "Status",
 			WidthMax: 55,
 		},
 	})
