@@ -71,6 +71,16 @@ func main() {
 	}
 	t.SetColumnConfigs([]table.ColumnConfig{
 		{
+			Name:  "RTT",
+			Align: text.AlignRight,
+			Transformer: func(val interface{}) string {
+				if val.(time.Duration) > time.Second {
+					return text.FgRed.Sprintf("%s", val)
+				}
+				return val.(time.Duration).String()
+			},
+		},
+		{
 			Name: "Status",
 			Transformer: text.Transformer(func(val interface{}) string {
 				color := text.FgGreen
