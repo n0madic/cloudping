@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"strings"
 	"time"
 
@@ -44,6 +45,7 @@ func endpointPing(template string, region *region) {
 				break
 			}
 			resolve_count++
+			time.Sleep(time.Millisecond * time.Duration(rand.Intn(200)))
 		}
 
 		err = pinger.Run()
