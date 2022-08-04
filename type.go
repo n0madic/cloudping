@@ -6,7 +6,7 @@ type (
 	region struct {
 		name     string
 		location string
-		host     string
+		endpoint string
 		code     string
 		rtt      time.Duration
 		err      error

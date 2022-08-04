@@ -13,22 +13,22 @@ import (
 func endpointPing(template string, region *region) {
 	defer wg.Done()
 
-	if region.host == "" {
+	if region.endpoint == "" {
 		code := region.name
 		if region.code != "" {
 			code = region.code
 		}
-		region.host = fmt.Sprintf(template, code)
+		region.endpoint = fmt.Sprintf(template, code)
 	}
 
-	if strings.HasPrefix(region.host, "http") {
+	if strings.HasPrefix(region.endpoint, "http") {
 		var err error
-		region.rtt, err = httpPing(region.host, args.Count, args.Timeout)
+		region.rtt, err = httpPing(region.endpoint, args.Count, args.Timeout)
 		if err != nil {
 			region.err = err
 		}
 	} else {
-		pinger, err := ping.NewPinger(region.host)
+		pinger, err := ping.NewPinger(region.endpoint)
 		if err != nil {
 			region.err = err
 			return
