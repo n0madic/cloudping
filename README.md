@@ -18,6 +18,7 @@ This util performs a ping to measure the network latency from your location to t
 - Scaleway
 - Servers.com
 - Tencent Cloud
+- UCloud
 - Vultr
 
 ## Install
