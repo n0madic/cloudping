@@ -111,6 +111,19 @@ var providers = provider{
 			{name: "uaenorth", location: "Dubai, AE"},
 		},
 	},
+	"baidu": {
+		name:         "Baidu Cloud",
+		hostTemplate: "s3.%s.bcebos.com",
+		regions: []*region{
+			{name: "bd", location: "Baoding, CN"},
+			{name: "bj", location: "Beijing, CN"},
+			{name: "gz", location: "Guangzhou, CN"},
+			{name: "fsh", location: "Shanghai, CN"},
+			{name: "su", location: "Suzhou, CN"},
+			{name: "fwh", location: "Wuhan, CN"},
+			{name: "sin", location: "Singapore, SG"},
+		},
+	},
 	"digitalocean": {
 		name:         "Digital Ocean",
 		hostTemplate: "speedtest-%s.digitalocean.com",
