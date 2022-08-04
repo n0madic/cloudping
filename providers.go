@@ -311,6 +311,16 @@ var providers = provider{
 			{name: "waw", location: "Warsaw, PL"},
 		},
 	},
+	"qing": {
+		name:         "QingCloud",
+		hostTemplate: "%s.qingstor.com",
+		regions: []*region{
+			{name: "gd2", location: "Guangdong, CN"},
+			{name: "pek3a", location: "Beijing, CN"},
+			{name: "pek3b", location: "Beijing, CN"},
+			{name: "sh1a", location: "Shanghai, CN"},
+		},
+	},
 	"qiniu": {
 		name:         "Qiniu Cloud",
 		hostTemplate: "up-%s.qiniup.com",
