@@ -311,6 +311,18 @@ var providers = provider{
 			{name: "waw", location: "Warsaw, PL"},
 		},
 	},
+	"qiniu": {
+		name:         "Qiniu Cloud",
+		hostTemplate: "up-%s.qiniup.com",
+		regions: []*region{
+			{name: "z0", location: "Huadong, CN"},
+			{name: "z1", location: "Huabei, CN"},
+			{name: "z2", location: "Huanan, CN"},
+			{name: "na0", location: "USA"},
+			{name: "as0", location: "Southeast Asia"},
+			{name: "cn-east-2", location: "Zhejiang, CN"},
+		},
+	},
 	"scaleway": {
 		name:         "Scaleway",
 		hostTemplate: "s3.%s.scw.cloud",
