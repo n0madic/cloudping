@@ -46,18 +46,18 @@ Options:
 
   ```
   $ cloudping --provider vultr --region us --region ca
-+----+-------+-----------+--------------------+-----------+--------+
-|    | CLOUD | REGION    | LOCATION           |       RTT | STATUS |
-+----+-------+-----------+--------------------+-----------+--------+
-|  1 | Vultr | nj-us     | New Jersey, US     | 123.422ms | OK     |
-|  2 | Vultr | tor-ca    | Toronto, CA        | 134.604ms | OK     |
-|  3 | Vultr | ga-us     | Atlanta, US        | 137.333ms | OK     |
-|  4 | Vultr | fl-us     | Miami, US          | 145.317ms | OK     |
-|  5 | Vultr | il-us     | Chicago, US        | 149.162ms | OK     |
-|  6 | Vultr | tx-us     | Dallas, US         | 161.395ms | OK     |
-|  7 | Vultr | lax-ca-us | Los Angeles, US    | 185.347ms | OK     |
-|  8 | Vultr | wa-us     | Seattle, US        | 185.407ms | OK     |
-|  9 | Vultr | sjo-ca-us | Silicon Valley, US | 185.909ms | OK     |
-| 10 | Vultr | hon-hi-us | Honolulu, US       | 238.706ms | OK     |
-+----+-------+-----------+--------------------+-----------+--------+
++----+----------+-----------+--------------------+-----------+--------+
+|    | PROVIDER | REGION    | LOCATION           |       RTT | STATUS |
++----+----------+-----------+--------------------+-----------+--------+
+|  1 | Vultr    | nj-us     | New Jersey, US     | 120.396ms | OK     |
+|  2 | Vultr    | tor-ca    | Toronto, CA        | 134.026ms | OK     |
+|  3 | Vultr    | ga-us     | Atlanta, US        | 136.809ms | OK     |
+|  4 | Vultr    | fl-us     | Miami, US          | 144.553ms | OK     |
+|  5 | Vultr    | il-us     | Chicago, US        | 147.464ms | OK     |
+|  6 | Vultr    | tx-us     | Dallas, US         | 156.319ms | OK     |
+|  7 | Vultr    | lax-ca-us | Los Angeles, US    | 181.803ms | OK     |
+|  8 | Vultr    | wa-us     | Seattle, US        | 182.867ms | OK     |
+|  9 | Vultr    | sjo-ca-us | Silicon Valley, US | 188.371ms | OK     |
+| 10 | Vultr    | hon-hi-us | Honolulu, US       | 238.351ms | OK     |
++----+----------+-----------+--------------------+-----------+--------+
 ```

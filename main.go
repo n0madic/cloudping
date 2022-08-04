@@ -54,7 +54,7 @@ func main() {
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)
 	t.SetAutoIndex(true)
-	t.AppendHeader(table.Row{"Cloud", "Region", "Location", "RTT", "Status"})
+	t.AppendHeader(table.Row{"Provider", "Region", "Location", "RTT", "Status"})
 	var minRTT time.Duration
 	for _, region := range results {
 		status := text.FgGreen.Sprint("OK")
