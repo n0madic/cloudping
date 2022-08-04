@@ -9,6 +9,7 @@ This util performs a ping to measure the network latency from your location to t
 - Digital Ocean
 - Google Cloud Platform
 - Hetzner Cloud
+- Huawei Cloud
 - IBM Cloud
 - Linode
 - Microsoft Azure
