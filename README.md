@@ -12,6 +12,7 @@ This util performs a ping to measure the network latency from your location to t
 - Hetzner Cloud
 - Huawei Cloud
 - IBM Cloud
+- Kingsoft Cloud
 - Linode
 - Microsoft Azure
 - Oracle Cloud

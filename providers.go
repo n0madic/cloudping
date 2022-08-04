@@ -235,6 +235,21 @@ var providers = provider{
 			{name: "us-south", location: "Dallas, US"},
 		},
 	},
+	"kingsoft": {
+		name:         "Kingsoft Cloud",
+		hostTemplate: "ks3-%s.ksyuncs.com",
+		regions: []*region{
+			{name: "cn-beijing", location: "Beijing, CN"},
+			{name: "cn-hk", location: "Hong Kong, CN", code: "cn-hk-1"},
+			{name: "cn-shanghai", location: "Shanghai, CN"},
+			{name: "cn-guangzhou", location: "Guangzhou, CN"},
+			{name: "jr-beijing", location: "Beijing, CN"},
+			{name: "jr-shanghai", location: "Shanghai, CN"},
+			{name: "gov-beijing", location: "Beijing, CN"},
+			{name: "rus", location: "Moscow, RU"},
+			{name: "sgp", location: "Singapore, SG"},
+		},
+	},
 	"linode": {
 		name:         "Linode",
 		hostTemplate: "speedtest.%s.linode.com",
