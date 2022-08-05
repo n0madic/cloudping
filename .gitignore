@@ -1,2 +1,3 @@
 cloudping
 *.py
+dist/
