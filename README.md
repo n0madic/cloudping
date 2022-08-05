@@ -27,6 +27,10 @@ This util performs a ping to measure the network latency from your location to t
 
 ## Install
 
+Download binaries from [release](https://github.com/n0madic/cloudping/releases) page.
+
+Or install from source:
+
 ```
 go install github.com/n0madic/cloudping@latest
 ```
