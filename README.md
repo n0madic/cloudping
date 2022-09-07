@@ -8,6 +8,7 @@ This util performs a ping to measure the network latency from your location to t
 - Amazon Web Services
 - Baidu Cloud
 - Digital Ocean
+- Gcore Cloud
 - Google Cloud Platform
 - Hetzner Cloud
 - Huawei Cloud
