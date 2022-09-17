@@ -29,6 +29,7 @@ func main() {
 				}
 				wg.Add(1)
 				go endpointPing(provider.hostTemplate, region)
+				time.Sleep(time.Millisecond)
 			}
 		}
 	}
