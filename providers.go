@@ -25,6 +25,7 @@ var providers = provider{
 			{name: "eu-west-1", location: "Dublin, IE"},
 			{name: "eu-west-2", location: "London, UK"},
 			{name: "eu-west-3", location: "Paris, FR"},
+			{name: "me-central-1", location: "Middle East, UAE"},
 			{name: "me-south-1", location: "Bahrain, BH"},
 			{name: "sa-east-1", location: "Sao Paulo, BR"},
 			{name: "us-east-1", location: "North Virginia, US"},
