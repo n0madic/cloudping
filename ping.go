@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-ping/ping"
+	probing "github.com/prometheus-community/pro-bing"
 	"github.com/valyala/fasthttp"
 )
 
@@ -28,7 +28,7 @@ func endpointPing(template string, region *region) {
 			region.err = err
 		}
 	} else {
-		pinger, err := ping.NewPinger(region.endpoint)
+		pinger, err := probing.NewPinger(region.endpoint)
 		if err != nil {
 			region.err = err
 			return
