@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/mehrdadrad/ping"
 	probing "github.com/prometheus-community/pro-bing"
 	"github.com/valyala/fasthttp"
 )
@@ -21,45 +22,79 @@ func endpointPing(template string, region *region) {
 		region.endpoint = fmt.Sprintf(template, code)
 	}
 
+	var err error
 	if strings.HasPrefix(region.endpoint, "http") {
-		var err error
 		region.rtt, err = httpPing(region.endpoint, args.Count, args.Timeout)
 		if err != nil {
 			region.err = err
 		}
 	} else {
-		pinger, err := probing.NewPinger(region.endpoint)
+		icmpPingFn := icmpPing
+		if args.AltPing {
+			icmpPingFn = icmpAltPing
+		}
+		region.rtt, err = icmpPingFn(region.endpoint, args.Count, args.Timeout)
 		if err != nil {
 			region.err = err
-			return
 		}
-		defer pinger.Stop()
-
-		pinger.Count = args.Count
-		pinger.Timeout = args.Timeout
-
-		resolve_count := 0
-		for {
-			err = pinger.Resolve()
-			if err == nil || resolve_count > 3 {
-				break
-			}
-			resolve_count++
-			time.Sleep(time.Millisecond * time.Duration(rand.Intn(200)))
-		}
-
-		err = pinger.Run()
-		if err != nil {
-			region.err = err
-			return
-		}
-
-		region.rtt = pinger.Statistics().AvgRtt
 	}
 
 	if region.rtt == 0 && region.err == nil {
 		region.err = fmt.Errorf("timeout")
 	}
+}
+
+func icmpPing(endpoint string, count int, timeout time.Duration) (time.Duration, error) {
+	pinger, err := probing.NewPinger(endpoint)
+	if err != nil {
+		return 0, err
+	}
+	defer pinger.Stop()
+
+	pinger.Count = count
+	pinger.Timeout = timeout
+
+	resolve_count := 0
+	for {
+		err = pinger.Resolve()
+		if err == nil || resolve_count > 3 {
+			break
+		}
+		resolve_count++
+		time.Sleep(time.Millisecond * time.Duration(rand.Intn(200)))
+	}
+
+	err = pinger.Run()
+	if err != nil {
+		return 0, err
+	}
+
+	return pinger.Statistics().AvgRtt, nil
+}
+
+func icmpAltPing(endpoint string, count int, timeout time.Duration) (time.Duration, error) {
+	pinger, err := ping.New(endpoint)
+	if err != nil {
+		return 0, err
+	}
+
+	pinger.SetCount(count)
+	pinger.SetTimeout(timeout.String())
+
+	r, err := pinger.Run()
+	if err != nil {
+		return 0, err
+	}
+
+	var rtt float64
+	var count_success int
+	for pr := range r {
+		if pr.Err == nil && pr.RTT > 0 {
+			rtt += pr.RTT
+			count_success++
+		}
+	}
+	return time.Duration((rtt / float64(count_success)) * float64(time.Millisecond)), nil
 }
 
 func httpPing(url string, count int, timeout time.Duration) (time.Duration, error) {

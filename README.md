@@ -39,10 +39,11 @@ go install github.com/n0madic/cloudping@latest
 ## Usage
 
 ```
-Usage: cloudping [--all] [--count COUNT] [--region REGION] [--location LOCATION] [--provider PROVIDER] [--timeout TIMEOUT]
+Usage: cloudping [--all] [--alt-ping] [--count COUNT] [--region REGION] [--location LOCATION] [--provider PROVIDER] [--timeout TIMEOUT]
 
 Options:
   --all, -a              Scan all providers
+  --alt-ping             Use alternative ICMP ping method
   --count COUNT, -c COUNT
                          Number of pings to send [default: 4]
   --hide-errors, -e      Hide errors from results
