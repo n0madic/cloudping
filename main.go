@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"strings"
 	"sync"
 	"time"
 
@@ -19,6 +20,7 @@ var (
 
 func main() {
 	arg.MustParse(&args)
+	args.Provider = strings.ToLower(args.Provider)
 
 	for key, provider := range providers {
 		if args.All || key == args.Provider {
