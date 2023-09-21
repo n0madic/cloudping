@@ -39,21 +39,20 @@ go install github.com/n0madic/cloudping@latest
 ## Usage
 
 ```
-Usage: cloudping [--all] [--alt-ping] [--count COUNT] [--region REGION] [--location LOCATION] [--provider PROVIDER] [--timeout TIMEOUT]
+Usage: cloudping [--all] [--alt-ping] [--count NUM] [--hide-errors] [--region NAME] [--location NAME] [--provider NAME] [--timeout DURATION]
 
 Options:
   --all, -a              Scan all providers
   --alt-ping             Use alternative ICMP ping method
-  --count COUNT, -c COUNT
-                         Number of pings to send [default: 4]
+  --count NUM, -c NUM    Number of pings to send [default: 4]
   --hide-errors, -e      Hide errors from results
-  --region REGION, -r REGION
+  --region NAME, -r NAME
                          Filter by regions, can be specified multiple times
-  --location LOCATION, -l LOCATION
+  --location NAME, -l NAME
                          Filter by location, can be specified multiple times
-  --provider PROVIDER, -p PROVIDER
+  --provider NAME, -p NAME
                          Choose provider for ping [default: aws]
-  --timeout TIMEOUT, -t TIMEOUT
+  --timeout DURATION, -t DURATION
                          Timeout before ping ends [default: 5s]
   --help, -h             display this help and exit
   ```
