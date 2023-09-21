@@ -378,6 +378,7 @@ var providers = provider{
 			{name: "ams2", location: "Haarlem, NL"},
 			{name: "ams3", location: "Amsterdam, NL"},
 			{name: "ams4", location: "Haarlem, NL"},
+			{name: "ams5", location: "Haarlem, NL"},
 			{name: "dfw1", location: "Dallas, US"},
 			{name: "dfw2", location: "Dallas, US"},
 			{name: "dfw3", location: "Dallas, US"},
