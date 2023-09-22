@@ -226,6 +226,7 @@ var providers = provider{
 			{name: "ash", location: "Ashburn, US"},
 			{name: "fsn", location: "Frankfurt, DE"},
 			{name: "hel", location: "Helsinki, FI"},
+			{name: "hil", location: "Hillsboro, US"},
 			{name: "nbg", location: "Nurnberg, DE"},
 		},
 	},
