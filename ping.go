@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"net"
 	"strings"
 	"time"
 
@@ -25,6 +26,12 @@ func endpointPing(template string, region *region) {
 	var err error
 	if strings.HasPrefix(region.endpoint, "http") {
 		region.rtt, err = httpPing(region.endpoint, args.Count, args.Timeout)
+		if err != nil {
+			region.err = err
+		}
+	} else if strings.HasPrefix(region.endpoint, "tcp") {
+		address := strings.TrimPrefix(region.endpoint, "tcp://")
+		region.rtt, err = tcpPing(address, args.Count, args.Timeout)
 		if err != nil {
 			region.err = err
 		}
@@ -114,6 +121,20 @@ func httpPing(url string, count int, timeout time.Duration) (time.Duration, erro
 		if err != nil {
 			return 0, err
 		}
+		rtt += time.Since(start)
+	}
+	return rtt / time.Duration(count), nil
+}
+
+func tcpPing(endpoint string, count int, timeout time.Duration) (time.Duration, error) {
+	var rtt time.Duration
+	for i := 0; i < count; i++ {
+		start := time.Now()
+		conn, err := net.DialTimeout("tcp", endpoint, timeout)
+		if err != nil {
+			return 0, err
+		}
+		conn.Close()
 		rtt += time.Since(start)
 	}
 	return rtt / time.Duration(count), nil
