@@ -1,9 +1,5 @@
 package main
 
-import "time"
-
-var timestamp = time.Now().Format("20060102150405")
-
 var providers = provider{
 	"aws": {
 		name:         "Amazon Web Services",
@@ -77,19 +73,19 @@ var providers = provider{
 	},
 	"azure": {
 		name:         "Microsoft Azure",
-		hostTemplate: "https://s3%s.blob.core.windows.net/public/latency-test.json?" + timestamp,
+		hostTemplate: "https://s3%s.blob.core.windows.net/public/latency-test.json",
 		regions: []*region{
 			{name: "australiacentral", location: "Canberra, AU"},
 			{name: "australiaeast", location: "New South Wales, AU"},
 			{name: "australiasoutheast", location: "Victoria, AU"},
 			{name: "brazilsouth", location: "Sao Paulo, BR"},
-			{name: "canadacentral", location: "Toronto, CA", endpoint: "https://speedtestcac.blob.core.windows.net/cb.js?" + timestamp},
+			{name: "canadacentral", location: "Toronto, CA", endpoint: "https://speedtestcac.blob.core.windows.net/cb.js"},
 			{name: "canadaeast", location: "Quebec City, CA"},
 			{name: "centralindia", location: "Pune, IN"},
 			{name: "centralus", location: "Iowa, US"},
-			{name: "centraluseuap", location: "Des Moines, US", endpoint: "https://centraluseuap.blob.core.windows.net/cb.js?" + timestamp},
-			{name: "chinaeast", location: "Shanghai, CN", endpoint: "https://astchinaeast.blob.core.chinacloudapi.cn/public/latency-test.json?" + timestamp},
-			{name: "chinanorth", location: "Beijing, CN", endpoint: "https://astchinanorth.blob.core.chinacloudapi.cn/public/latency-test.json?" + timestamp},
+			{name: "centraluseuap", location: "Des Moines, US", endpoint: "https://centraluseuap.blob.core.windows.net/cb.js"},
+			{name: "chinaeast", location: "Shanghai, CN", endpoint: "https://astchinaeast.blob.core.chinacloudapi.cn/public/latency-test.json"},
+			{name: "chinanorth", location: "Beijing, CN", endpoint: "https://astchinanorth.blob.core.chinacloudapi.cn/public/latency-test.json"},
 			{name: "eastasia", location: "Hong Kong, CN"},
 			{name: "eastus", location: "Virginia, US"},
 			{name: "eastus2", location: "Virginia, US"},
@@ -102,14 +98,14 @@ var providers = provider{
 			{name: "northcentralus", location: "Illinois, US"},
 			{name: "northeurope", location: "Dublin, IE"},
 			{name: "norwayeast", location: "Oslo, NO"},
-			{name: "polandcentral", location: "Warsaw, PL", endpoint: "https://speedtestplc.blob.core.windows.net/cb.js?" + timestamp},
+			{name: "polandcentral", location: "Warsaw, PL", endpoint: "https://speedtestplc.blob.core.windows.net/cb.js"},
 			{name: "qatarcentral", location: "Qatar, QA"},
 			{name: "southafricanorth", location: "Johannesburg, ZA"},
 			{name: "southcentralus", location: "Texas, US"},
 			{name: "southeastasia", location: "Singapore, SG"},
 			{name: "southindia", location: "Chennai, IN"},
 			{name: "swedencentral", location: "Gaevle, SE"},
-			{name: "swedensouth", location: "Malmoe, SE", endpoint: "https://swedensouth.blob.core.windows.net/cb.js?" + timestamp},
+			{name: "swedensouth", location: "Malmoe, SE", endpoint: "https://swedensouth.blob.core.windows.net/cb.js"},
 			{name: "switzerlandnorth", location: "Zurich, CH"},
 			{name: "uaenorth", location: "Dubai, AE"},
 			{name: "uksouth", location: "London, UK"},

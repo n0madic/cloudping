@@ -110,10 +110,11 @@ func httpPing(url string, count int, timeout time.Duration) (time.Duration, erro
 		ReadTimeout: timeout,
 	}
 	req := fasthttp.AcquireRequest()
-	req.SetRequestURI(url)
 	req.Header.SetMethod(fasthttp.MethodGet)
 	defer fasthttp.ReleaseRequest(req)
 	for i := 0; i < count; i++ {
+		stampedURL := fmt.Sprintf("%s?%d", url, time.Now().UnixNano()/int64(time.Millisecond))
+		req.SetRequestURI(stampedURL)
 		start := time.Now()
 		resp := fasthttp.AcquireResponse()
 		err := client.Do(req, resp)
