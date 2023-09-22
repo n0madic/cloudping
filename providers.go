@@ -204,6 +204,7 @@ var providers = provider{
 			{name: "europe-west6", location: "Zurich, CH", endpoint: "https://europe-west6-5tkroniexa-oa.a.run.app/api/ping"},
 			{name: "europe-west8", location: "Milan, IT", endpoint: "https://europe-west8-5tkroniexa-oc.a.run.app/api/ping"},
 			{name: "europe-west9", location: "Paris, FR", endpoint: "https://europe-west9-5tkroniexa-od.a.run.app/api/ping"},
+			{name: "me-west1", location: "Tel Aviv, IL", endpoint: "https://me-west1-5tkroniexa-zf.a.run.app/api/ping"},
 			{name: "northamerica-northeast1", location: "Montreal, CA", endpoint: "https://northamerica-northeast1-5tkroniexa-nn.a.run.app/api/ping"},
 			{name: "northamerica-northeast2", location: "Toronto, CA", endpoint: "https://northamerica-northeast2-5tkroniexa-pd.a.run.app/api/ping"},
 			{name: "southamerica-east1", location: "Osasco, BR", endpoint: "https://southamerica-east1-5tkroniexa-rj.a.run.app/api/ping"},
