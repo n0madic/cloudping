@@ -7,6 +7,7 @@ This util performs a ping to measure the network latency from your location to t
 - Alibaba Cloud
 - Amazon Web Services
 - Baidu Cloud
+- CoreWeave
 - Digital Ocean
 - Gcore Cloud
 - Google Cloud Platform

@@ -129,6 +129,15 @@ var providers = provider{
 			{name: "sin", location: "Singapore, SG"},
 		},
 	},
+	"coreweave": {
+		name:         "CoreWeave",
+		hostTemplate: "https://http.speedtest.%s.coreweave.com/ping",
+		regions: []*region{
+			{name: "las1", location: "Las Vegas, US"},
+			{name: "lga1", location: "New York, US"},
+			{name: "ord1", location: "Chicago, US"},
+		},
+	},
 	"digitalocean": {
 		name:         "Digital Ocean",
 		hostTemplate: "%s.digitaloceanspaces.com",
@@ -328,7 +337,7 @@ var providers = provider{
 		hostTemplate: "s3.%s.cloud.ovh.net",
 		regions: []*region{
 			{name: "bhs", location: "Beauharnois, CA"},
-			{name: "de", location: "Franckfurt, DE"},
+			{name: "de", location: "Frankfurt, DE"},
 			{name: "gra", location: "Gravelines, FR"},
 			{name: "hil", location: "Hilsboro, US", endpoint: "hil.proof.ovh.us"},
 			{name: "sbg", location: "Strasbourg, FR"},
