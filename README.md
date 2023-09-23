@@ -26,6 +26,7 @@ This util performs a ping to measure the network latency from your location to t
 - Servers.com
 - Tencent Cloud
 - UCloud
+- UpCloud
 - Vultr
 
 ## Install
