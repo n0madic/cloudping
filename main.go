@@ -57,7 +57,13 @@ func main() {
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)
 	t.SetAutoIndex(true)
-	t.AppendHeader(table.Row{"Provider", "Region", "Location", "RTT", "Status"})
+	if args.Provider == "dns" && !args.All {
+		t.SetTitle("Public DNS Servers")
+		t.Style().Title = table.TitleOptions{Align: text.AlignCenter}
+		t.AppendHeader(table.Row{"Provider", "Type", "Address", "RTT", "Status"})
+	} else {
+		t.AppendHeader(table.Row{"Provider", "Region", "Location", "RTT", "Status"})
+	}
 	var minRTT time.Duration
 	for _, region := range results {
 		status := text.FgGreen.Sprint("OK")
@@ -76,7 +82,11 @@ func main() {
 		if rtt < minRTT || minRTT == 0 {
 			minRTT = rtt
 		}
-		t.AppendRow(table.Row{region.code, region.name, region.location, rtt, status})
+		if args.Provider == "dns" && !args.All {
+			t.AppendRow(table.Row{region.name, region.location, region.endpoint, rtt, status})
+		} else {
+			t.AppendRow(table.Row{region.code, region.name, region.location, rtt, status})
+		}
 	}
 	t.SetColumnConfigs([]table.ColumnConfig{
 		{

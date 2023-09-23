@@ -19,6 +19,7 @@ This util performs a ping to measure the network latency from your location to t
 - Microsoft Azure
 - Oracle Cloud
 - OVH Cloud
+- Public DNS servers
 - QingCloud
 - Qiniu Cloud
 - Scaleway
