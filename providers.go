@@ -123,11 +123,12 @@ var providers = provider{
 		regions: []*region{
 			{name: "bd", location: "Baoding, CN"},
 			{name: "bj", location: "Beijing, CN"},
-			{name: "gz", location: "Guangzhou, CN"},
 			{name: "fsh", location: "Shanghai, CN"},
-			{name: "su", location: "Suzhou, CN"},
 			{name: "fwh", location: "Wuhan, CN"},
+			{name: "gz", location: "Guangzhou, CN"},
+			{name: "hkg", location: "Hong Kong, CN"},
 			{name: "sin", location: "Singapore, SG"},
+			{name: "su", location: "Suzhou, CN"},
 		},
 	},
 	"coreweave": {
