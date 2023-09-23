@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
 	"math/rand"
 	"net"
@@ -108,6 +109,9 @@ func httpPing(url string, count int, timeout time.Duration) (time.Duration, erro
 	var rtt time.Duration
 	client := fasthttp.Client{
 		ReadTimeout: timeout,
+		TLSConfig: &tls.Config{
+			InsecureSkipVerify: true,
+		},
 	}
 	req := fasthttp.AcquireRequest()
 	req.Header.SetMethod(fasthttp.MethodGet)
