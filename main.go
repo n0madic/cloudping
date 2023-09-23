@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"runtime"
 	"sort"
 	"strings"
 	"sync"
@@ -13,29 +14,55 @@ import (
 	"github.com/jedib0t/go-pretty/v6/text"
 )
 
-var (
-	args config
-	wg   sync.WaitGroup
-)
+var args config
 
 func main() {
 	arg.MustParse(&args)
 	args.Provider = strings.ToLower(args.Provider)
 
+	semaphore := make(chan struct{}, args.Concurrent)
+	var wg sync.WaitGroup
+
 	for key, provider := range providers {
 		if args.All || key == args.Provider {
-			for _, region := range provider.regions {
-				if (len(args.FilterRegion) > 0 && !isFiltered(region.name, args.FilterRegion)) ||
-					(len(args.FilterLocation) > 0 && !isFiltered(region.location, args.FilterLocation)) {
+			for _, r := range provider.regions {
+				if (len(args.FilterRegion) > 0 && !isFiltered(r.name, args.FilterRegion)) ||
+					(len(args.FilterLocation) > 0 && !isFiltered(r.location, args.FilterLocation)) {
 					continue
 				}
+				if r.endpoint == "" {
+					code := r.name
+					if r.code != "" {
+						code = r.code
+					}
+					r.endpoint = fmt.Sprintf(provider.hostTemplate, code)
+				}
+				semaphore <- struct{}{}
 				wg.Add(1)
-				go endpointPing(provider.hostTemplate, region)
+				go func(region *region) {
+					defer wg.Done()
+					defer func() { <-semaphore }()
+					region.rtt, region.err = endpointPing(region.endpoint)
+					if region.rtt == 0 && region.err == nil {
+						region.err = fmt.Errorf("timeout")
+					}
+					if region.err != nil {
+						fmt.Print(".")
+					} else {
+						fmt.Print("!")
+					}
+				}(r)
 				time.Sleep(time.Millisecond)
 			}
 		}
 	}
 	wg.Wait()
+
+	clearLine := "\033[2K\r"
+	if runtime.GOOS == "windows" {
+		clearLine = "\r"
+	}
+	fmt.Print(clearLine)
 
 	results := []*region{}
 	for key, provider := range providers {

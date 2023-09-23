@@ -13,54 +13,28 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-func endpointPing(template string, region *region) {
-	defer wg.Done()
-
-	if region.endpoint == "" {
-		code := region.name
-		if region.code != "" {
-			code = region.code
-		}
-		region.endpoint = fmt.Sprintf(template, code)
+func endpointPing(endpoint string) (time.Duration, error) {
+	if strings.HasPrefix(endpoint, "http") {
+		return httpPing(endpoint)
+	} else if strings.HasPrefix(endpoint, "tcp") {
+		address := strings.TrimPrefix(endpoint, "tcp://")
+		return tcpPing(address)
 	}
-
-	var err error
-	if strings.HasPrefix(region.endpoint, "http") {
-		region.rtt, err = httpPing(region.endpoint, args.Count, args.Timeout)
-		if err != nil {
-			region.err = err
-		}
-	} else if strings.HasPrefix(region.endpoint, "tcp") {
-		address := strings.TrimPrefix(region.endpoint, "tcp://")
-		region.rtt, err = tcpPing(address, args.Count, args.Timeout)
-		if err != nil {
-			region.err = err
-		}
-	} else {
-		icmpPingFn := icmpPing
-		if args.AltPing {
-			icmpPingFn = icmpAltPing
-		}
-		region.rtt, err = icmpPingFn(region.endpoint, args.Count, args.Timeout)
-		if err != nil {
-			region.err = err
-		}
+	if args.AltPing {
+		return icmpAltPing(endpoint)
 	}
-
-	if region.rtt == 0 && region.err == nil {
-		region.err = fmt.Errorf("timeout")
-	}
+	return icmpPing(endpoint)
 }
 
-func icmpPing(endpoint string, count int, timeout time.Duration) (time.Duration, error) {
+func icmpPing(endpoint string) (time.Duration, error) {
 	pinger, err := probing.NewPinger(endpoint)
 	if err != nil {
 		return 0, err
 	}
 	defer pinger.Stop()
 
-	pinger.Count = count
-	pinger.Timeout = timeout
+	pinger.Count = args.Count
+	pinger.Timeout = args.Timeout
 
 	resolve_count := 0
 	for {
@@ -80,14 +54,14 @@ func icmpPing(endpoint string, count int, timeout time.Duration) (time.Duration,
 	return pinger.Statistics().AvgRtt, nil
 }
 
-func icmpAltPing(endpoint string, count int, timeout time.Duration) (time.Duration, error) {
+func icmpAltPing(endpoint string) (time.Duration, error) {
 	pinger, err := ping.New(endpoint)
 	if err != nil {
 		return 0, err
 	}
 
-	pinger.SetCount(count)
-	pinger.SetTimeout(timeout.String())
+	pinger.SetCount(args.Count)
+	pinger.SetTimeout(args.Timeout.String())
 
 	r, err := pinger.Run()
 	if err != nil {
@@ -105,10 +79,10 @@ func icmpAltPing(endpoint string, count int, timeout time.Duration) (time.Durati
 	return time.Duration((rtt / float64(count_success)) * float64(time.Millisecond)), nil
 }
 
-func httpPing(url string, count int, timeout time.Duration) (time.Duration, error) {
+func httpPing(url string) (time.Duration, error) {
 	var rtt time.Duration
 	client := fasthttp.Client{
-		ReadTimeout: timeout,
+		ReadTimeout: args.Timeout,
 		TLSConfig: &tls.Config{
 			InsecureSkipVerify: true,
 		},
@@ -116,7 +90,7 @@ func httpPing(url string, count int, timeout time.Duration) (time.Duration, erro
 	req := fasthttp.AcquireRequest()
 	req.Header.SetMethod(fasthttp.MethodGet)
 	defer fasthttp.ReleaseRequest(req)
-	for i := 0; i < count; i++ {
+	for i := 0; i < args.Count; i++ {
 		stampedURL := fmt.Sprintf("%s?%d", url, time.Now().UnixNano()/int64(time.Millisecond))
 		req.SetRequestURI(stampedURL)
 		start := time.Now()
@@ -128,19 +102,19 @@ func httpPing(url string, count int, timeout time.Duration) (time.Duration, erro
 		}
 		rtt += time.Since(start)
 	}
-	return rtt / time.Duration(count), nil
+	return rtt / time.Duration(args.Count), nil
 }
 
-func tcpPing(endpoint string, count int, timeout time.Duration) (time.Duration, error) {
+func tcpPing(endpoint string) (time.Duration, error) {
 	var rtt time.Duration
-	for i := 0; i < count; i++ {
+	for i := 0; i < args.Count; i++ {
 		start := time.Now()
-		conn, err := net.DialTimeout("tcp", endpoint, timeout)
+		conn, err := net.DialTimeout("tcp", endpoint, args.Timeout)
 		if err != nil {
 			return 0, err
 		}
 		conn.Close()
 		rtt += time.Since(start)
 	}
-	return rtt / time.Duration(count), nil
+	return rtt / time.Duration(args.Count), nil
 }

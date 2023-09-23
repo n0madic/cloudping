@@ -9,6 +9,7 @@ import (
 type config struct {
 	All            bool          `arg:"--all,-a" help:"Scan all providers"`
 	AltPing        bool          `arg:"--alt-ping" help:"Use alternative ICMP ping method"`
+	Concurrent     int           `arg:"--concurrent,-C" placeholder:"NUM" default:"10" help:"Number of concurrent pings"`
 	Count          int           `arg:"--count,-c" placeholder:"NUM" default:"4" help:"Number of pings to send"`
 	HideErrors     bool          `arg:"--hide-errors,-e" help:"Hide errors from results"`
 	FilterRegion   []string      `arg:"--region,-r,separate" placeholder:"NAME" help:"Filter by regions, can be specified multiple times"`
