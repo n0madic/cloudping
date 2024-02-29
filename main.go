@@ -78,6 +78,18 @@ func main() {
 		os.Exit(1)
 	}
 	sort.Slice(results, func(i, j int) bool {
+		if results[i].err != nil && results[j].err == nil {
+			return false
+		}
+		if results[i].err == nil && results[j].err != nil {
+			return true
+		}
+		if results[i].rtt == 0 && results[j].rtt != 0 {
+			return false
+		}
+		if results[i].rtt != 0 && results[j].rtt == 0 {
+			return true
+		}
 		return results[i].rtt < results[j].rtt
 	})
 
@@ -106,7 +118,7 @@ func main() {
 		if rtt > time.Second {
 			rtt = rtt.Round(time.Millisecond)
 		}
-		if rtt < minRTT || minRTT == 0 {
+		if rtt != 0 && (rtt < minRTT || minRTT == 0) {
 			minRTT = rtt
 		}
 		if args.Provider == "dns" && !args.All {
@@ -120,6 +132,9 @@ func main() {
 			Name:  "RTT",
 			Align: text.AlignRight,
 			Transformer: func(val interface{}) string {
+				if val.(time.Duration) == 0 {
+					return text.FgRed.Sprintf("N/A")
+				}
 				if val.(time.Duration) > time.Second {
 					return text.FgRed.Sprintf("%s", val)
 				}
