@@ -16,6 +16,7 @@ var providers = provider{
 			{name: "ap-southeast-2", location: "Sydney, AU"},
 			{name: "ap-southeast-3", location: "Jakarta, ID"},
 			{name: "ap-southeast-4", location: "Melbourne, AU"},
+			{name: "ap-southeast-5", location: "Cyberjaya, MY"},
 			{name: "ca-central-1", location: "Montreal, CA"},
 			{name: "ca-west-1", location: "Calgary, CA"},
 			{name: "eu-central-1", location: "Frankfurt, DE"},
